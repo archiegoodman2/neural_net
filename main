@@ -31,18 +31,28 @@ def main() :
             self.output = np.dot(inputs, self.weights)+ self.biases
 
         
-    layer1 = Layer_Dense(4,5)
-    layer2 = Layer_Dense(5,2)
+    #now we make our activation function 
+            
+    #step function = activation function, in this context
+            
+    #but sigmoid activation functions are a bit more practical as they have a more granular output
+    #more granular = better because we get a better picture of the impact to the loss when you change the inputs 
+            
+    #i.e. we will know how close we were to outputting 1, for a given input
+            
+    #better yet, we will use the Rectified Linear (ReLU) Output function over sigmoid function. Why?
+    #because sigmoid functions have the vanishing gradient problem (google this)
+            
+    #also faster (simple calculation) than sigmoid. and it works
+            
+    #so we're going to write an activation function 
+            
+    
+            
+        
+    
 
-    layer1.forward(X)  
 
-    #print(layer1.output)
-
-    layer2.forward(layer1.output)
-
-    print(layer2.output)
-
-      
 
 
 main()
