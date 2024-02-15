@@ -1,4 +1,10 @@
 import numpy as np 
+import nnfs 
+import matplotlib.pyplot as plt 
+
+
+
+nnfs.init() #does a couple useful things like sets default numpy datatype
 
 np.random.seed(0)
 
@@ -34,6 +40,9 @@ def main() :
             self.output = np.maximum(0, inputs)
 
         
+
+
+        
         
     #now we make our activation function 
             
@@ -56,11 +65,7 @@ def main() :
             
     
             
-        
-    
-
-
-
+      
 
 main()
 
