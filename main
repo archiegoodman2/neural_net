@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 from nnfs.datasets import spiral_data
 
+
+
 #credit: ###
 #https://cs231n.github.io/neural-networks-case-study/
 def spiral_data(points, classes):
