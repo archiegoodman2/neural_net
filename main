@@ -4,21 +4,8 @@ import matplotlib.pyplot as plt
 
 from nnfs.datasets import spiral_data
 
-
-
-#credit: ###
+#credit:
 #https://cs231n.github.io/neural-networks-case-study/
-def spiral_data(points, classes):
-    X = np.zeros((points*classes, 2))
-    y = np.zeros(points*classes, dtype='uint8')
-    for class_number in range(classes):
-        ix = range(points*class_number, points*(class_number+1))
-        r = np.linspace(0.0, 1, points)  # radius
-        t = np.linspace(class_number*4, (class_number+1)*4, points) + np.random.randn(points)*0.2
-        X[ix] = np.c_[r*np.sin(t*2.5), r*np.cos(t*2.5)]
-        y[ix] = class_number
-    return X, y
-
 
 
 nnfs.init() #does a couple useful things like sets default numpy datatype
@@ -26,80 +13,58 @@ nnfs.init() #does a couple useful things like sets default numpy datatype
 np.random.seed(0)
 
 
+#let's define our first hidden layer
+class Layer_Dense:
 
-def main() :
+    def __init__(self, n_inputs, n_neurons):
+        #n_inputs is size of input coming in, and n_neurons is how many neurons we have
 
-  #lets define a training set 
-    X = [[1, 2, 3, 2.5],
-        [2.0, 5.0, -1.0, 2.0],
-        [-1.5, 2.7, 3.3, -0.8]]
-    
-    #y = targets
-    X , y = spiral_data(100, 3)
+        #the shape is n_inputs x n_neurons not the other way round, so when we do a forward pass we dont have to take the transpose
+        self.weights = 0.10 * np.random.randn(n_inputs, n_neurons)
 
-
-    #let's define our first hidden layer
-    class Layer_Dense:
-
-        def __init__(self, n_inputs, n_neurons):
-            #n_inputs is size of input coming in, and n_neurons is how many neurons we have
-
-            #the shape is n_inputs x n_neurons not the other way round, so when we do a forward pass we dont have to take the transpose
-            self.weights = 0.10 * np.random.randn(n_inputs, n_neurons)
-
-            #biases is always a vector so we define it's shape with a 1
-            self.biases = np.zeros((1, n_neurons))
+        #biases is always a vector so we define it's shape with a 1
+        self.biases = np.zeros((1, n_neurons))
 
 
-        #inputs could be input or previous output
-        def forward(self, inputs):
-            self.output = np.dot(inputs, self.weights) + self.biases
-
-    
-    class Activation_ReLU : 
-        def forward(self, inputs) :
-            self.output = np.maximum(0, inputs)
-
-    layer1 = Layer_Dense(4, 5)
-    activation1 = Activation_ReLU()
-
-    layer1.forward(X)
-
-    #print(layer1.output)
-    activation1.forward(layer1.output)
-    print(activation1.output)
+    #inputs could be input or previous output
+    def forward(self, inputs):
+        self.output = np.dot(inputs, self.weights) + self.biases
 
 
+class Activation_ReLU : 
+    def forward(self, inputs) :
+        self.output = np.maximum(0, inputs)
 
-        
-        
-    #now we make our activation function 
-            
-    #step function = activation function, in this context
-            
-    #but sigmoid activation functions are a bit more practical as they have a more granular output
-    #more granular = better because we get a better picture of the impact to the loss when you change the inputs 
-            
-    #i.e. we will know how close we were to outputting 1, for a given input
-            
-    #better yet, we will use the Rectified Linear (ReLU) Output function over sigmoid function. Why?
-    #because sigmoid functions have the vanishing gradient problem (google this)
-            
-    #also faster (simple calculation) than sigmoid. and it works
-            
-    #so we're going to write a ReLU activation function (part 5 if you're following along)
 
-    
+class Activation_Softmax: 
+    def forward(self, inputs):
+        exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
+        probabilities = exp_values / np.sum(exp_values, axis = 1, keepdims = True)
          
-            
-    
-            
-        
-    
+        self.output = probabilities
+        #if we dont keep dimension of the array, may get any issue w dot produt
 
 
 
+X, y = spiral_data(samples = 100, classes = 3)
 
-main()
+dense1 = Layer_Dense(2,3)
+activation1 = Activation_ReLU()
+
+dense2 = Layer_Dense(3,3)
+activation2 = Activation_Softmax()
+
+dense1.forward(X)
+activation1.forward(dense1.output)
+
+dense2.forward(activation1.output)
+activation2.forward(dense2.output)
+
+print(activation2.output[:5])
+
+
+ 
+
+
 
 
