@@ -48,6 +48,7 @@ class Activation_Softmax:
 
 X, y = spiral_data(samples = 100, classes = 3)
 
+#so let's make a first attempt at a pseudo, simple neural net
 dense1 = Layer_Dense(2,3)
 activation1 = Activation_ReLU()
 
