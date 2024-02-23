@@ -57,6 +57,7 @@ activation1 = Activation_ReLU()
 dense2 = Layer_Dense(3,3)
 activation2 = Activation_Softmax()
 
+#then we just do a forward pass and activate each one 
 dense1.forward(X)
 activation1.forward(dense1.output)
 
