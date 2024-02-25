@@ -53,7 +53,6 @@ pass it to the ReLU for the first layer
 dense1 = Layer_Dense(2,3)
 activation1 = Activation_ReLU()
 
-#then pass our inputs to the next layer, and apply the softmax since its the final layer
 dense2 = Layer_Dense(3,3)
 activation2 = Activation_Softmax()
 
