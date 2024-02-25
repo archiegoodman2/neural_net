@@ -13,7 +13,6 @@ nnfs.init() #does a couple useful things like sets default numpy datatype
 np.random.seed(0)
 
 
-#let's define our first hidden layer
 class Layer_Dense:
 
     def __init__(self, n_inputs, n_neurons):
