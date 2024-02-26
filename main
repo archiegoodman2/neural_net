@@ -67,6 +67,7 @@ class Loss_CategoricalCrossentropy(Loss):
             correct_confidences = y_pred_clipped[range(samples), y_true]
         elif len(y_true.shape) == 2:
             #one hot encoded
+            #ADD ERROR CATCHING MAYBE later 
             correct_confidences = np.sum(y_pred_clipped * y_true, axis = 1)
 
         negative_log_likelihoods = -np.log(correct_confidences)
