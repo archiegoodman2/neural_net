@@ -79,6 +79,8 @@ class Loss_CategoricalCrossentropy(Loss):
 
 
 
+#so lets manually set up a crude neural net and get the loss
+
 X, y = spiral_data(samples = 100, classes = 3)
 
 dense1 = Layer_Dense(2,3)
