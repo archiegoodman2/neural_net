@@ -7,7 +7,6 @@ from nnfs.datasets import spiral_data
 #credit:
 #https://cs231n.github.io/neural-networks-case-study/
 
-
 nnfs.init() #does a couple useful things like sets default numpy datatype
 
 np.random.seed(0)
